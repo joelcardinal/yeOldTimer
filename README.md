@@ -33,9 +33,14 @@ $(function() {
 	*	utcOffset = UTC offset of the timezone the countdown should end in
 	*	Denver MDT -6 hours behind UTC, Denver MST -7 hours behind UTC
 	*	https://en.wikipedia.org/wiki/List_of_UTC_time_offsets
+	*
+	*	Setting date times in JavaScript options below:
+	*	(this link should help explain what time options to set -- for example, why month setting doesn't follow convention)
+	*	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+	*
 	*/
 	options.utcOffset	= -7; // or comment out this line if countdown should end in users timezone
-	options.year		= 2015; // must be four digit year
+	options.year		= 2016; // must be four digit year
 	options.month		= 11; // 0-11; where 0 = January
 	options.day			= 17; // 1-31
 	options.hour		= 0;

@@ -91,16 +91,17 @@
 			};
 	
 			function intervalCallback () {
-				if(timer == 0){
+				if(timer <= 0){
 					settings.$tmrWrapper.hide();
 					clearInterval(interval);
+				}else{
+					setTime(timer);
+					if (showTimer){
+						settings.$tmrWrapper.show();
+						showTimer = false;
+					}
+					timer = timer - 1;
 				}
-				setTime(timer);
-				if (showTimer){
-					settings.$tmrWrapper.show();
-					showTimer = false;
-				}
-				timer = timer - 1;
 			}
 		}
  

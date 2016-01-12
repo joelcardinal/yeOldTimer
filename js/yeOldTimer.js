@@ -21,19 +21,19 @@
 
 (function($) {
  
-    $.yeOldTimer = function( options ) {
+	$.yeOldTimer = function( options ) {
  
-        var settings = $.extend({
+		var settings = $.extend({
 			/*
-            *	These are the default settings.
+			*	These are the default settings.
 			*
 			*	utcOffset: Denver MDT -6 hours behind UTC, Denver MST -7 hours behind UTC
 			*	https://en.wikipedia.org/wiki/List_of_UTC_time_offsets
 			*/
 			utcOffset	: -(new Date().getTimezoneOffset() / 60), // will result in users timezone
-			year		: 2015, // must be four digit year
-			month		: 11, // 0-11; 0 = January
-			day			: 15, // 1-31
+			year		: new Date().getFullYear(), // must be four digit year
+			month		: new Date().getMonth(), // 0-11; 0 = January
+			day			: new Date().getDay() + 1, // 1-31
 			hour		: 0,
 			min			: 0,
 			second		: 0,
@@ -44,7 +44,7 @@
 			$minElem	: $('.tmr_minutes'),
 			$secElem	: $('.tmr_seconds'),
 			showDays	: true
-        }, options );
+		}, options );
 
 		function startTimer(duration,settings) {
 			

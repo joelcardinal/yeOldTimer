@@ -56,16 +56,18 @@ div.tmr_wrapper div span {
 
 </head>
 <body>
+
+<!-- 
+
+NOTE: Only the elements with a class of "tmr_..." are required for your HTML
 	
+-->
+
 <div class="ex_promoText1">PROMO TEXT HERE</div>
 <div class="ex_container">
 	<div class="ex_promoText2">More Promo Text Here!<br>It's the final countdown...</div>
-	<div class="tmr_wrapper" style="display:none">
-		<!--
-			You'll want to comment out or remove all the HTML elements for the "days" section
-			below if showDays js custom option is "false"
-		-->
-		<div><span>days</span><span class="tmr_days"></span></div>
+	<div class="tmr_wrapper" style="display:none"> <!-- <<< NOTE: display none style is required-->
+		<div class="tmr_days_wrapper"><span>days</span><span class="tmr_days"></span></div> <!-- <<< NOTE: this will automatically be hidden if < 1 -->
 		<div><span>hrs</span><span class="tmr_hours"></span></div>
 		<div><span>min</span><span class="tmr_minutes"></span></div>
 		<div><span>sec</span><span class="tmr_seconds"></span></div>
@@ -91,20 +93,20 @@ $(function() {
 	*	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
 	*
 	*/
-	options.utcOffset	= -7; // or comment out this line if countdown should end in users timezone
-	options.year		= 2016; // must be four digit year
-	options.month		= 0; // 0-11; where 0 = January
-	options.day			= 31; // 1-31
-	options.hour		= 0; // 0-23
-	options.min			= 0; // 0-59
-	options.second		= 0;
-	options.milsec		= 0;
-	options.$tmrWrapper	= $('.tmr_wrapper');
-	options.$daysElem	= $('.tmr_days');
-	options.$hrsElem	= $('.tmr_hours');
-	options.$minElem	= $('.tmr_minutes');
-	options.$secElem	= $('.tmr_seconds');
-	options.showDays	= true;
+	options.utcOffset		= -7; // or comment out this line if countdown should end in users timezone
+	options.year			= 2016; // must be four digit year
+	options.month			= 1; // 0-11; where 0 = January
+	options.day				= 6; // 1-31
+	options.hour			= 0; // 0-23
+	options.min				= 0; // 0-59
+	options.second			= 0;
+	options.milsec			= 0;
+	options.$tmrWrapper		= $('.tmr_wrapper');
+	options.$daysElem		= $('.tmr_days');
+	options.$daysWrapElem	= $('.tmr_days_wrapper');
+	options.$hrsElem		= $('.tmr_hours');
+	options.$minElem		= $('.tmr_minutes');
+	options.$secElem		= $('.tmr_seconds');
 	// init yeOldTimer countdown jQuery plugin with custom options
 	$.yeOldTimer(options);
 	

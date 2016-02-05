@@ -30,27 +30,23 @@
 			*	utcOffset: Denver MDT -6 hours behind UTC, Denver MST -7 hours behind UTC
 			*	https://en.wikipedia.org/wiki/List_of_UTC_time_offsets
 			*/
-			utcOffset	: -(new Date().getTimezoneOffset() / 60), // will result in users timezone
-			year		: new Date().getFullYear(), // must be four digit year
-			month		: new Date().getMonth(), // 0-11; 0 = January
-			day			: new Date().getDay() + 1, // 1-31
-			hour		: 0,
-			min			: 0,
-			second		: 0,
-			milsec		: 0,
-			$tmrWrapper	: $('.tmr_wrapper'),
-			$daysElem	: $('.tmr_days'),
-			$hrsElem	: $('.tmr_hours'),
-			$minElem	: $('.tmr_minutes'),
-			$secElem	: $('.tmr_seconds'),
-			showDays	: true
+			utcOffset		: -(new Date().getTimezoneOffset() / 60), // will result in users timezone
+			year			: new Date().getFullYear(), // must be four digit year
+			month			: new Date().getMonth(), // 0-11; 0 = January
+			day				: new Date().getDay() + 1, // 1-31
+			hour			: 0,
+			min				: 0,
+			second			: 0,
+			milsec			: 0,
+			$tmrWrapper		: $('.tmr_wrapper'),
+			$daysElem		: $('.tmr_days'),
+			$daysWrapElem	: $('.tmr_days_wrapper'),
+			$hrsElem		: $('.tmr_hours'),
+			$minElem		: $('.tmr_minutes'),
+			$secElem		: $('.tmr_seconds'),
 		}, options );
 
 		function startTimer(duration,settings) {
-			
-			if(!settings.showDays){
-				settings.$daysElem.hide();
-			}
 			
 			var showTimer = true,
 				timer = duration,
@@ -63,15 +59,16 @@
 				seconds;
 	
 			function setTime(timer){
-				if(!settings.showDays || (settings.showDays && parseInt(timer / 3600, 10) < 24)){
-		        	hours = parseInt(timer / 3600, 10);
-		        	hoursAfter = (timer - (hours * 3600));
+				
+				if(parseInt(timer / 3600, 10) < 24){
+					hours = parseInt(timer / 3600, 10);
+					hoursAfter = (timer - (hours * 3600));
 				}else{
 					days =  parseInt(timer / 86400, 10);
 					daysAfter = (timer - (days * 86400));
-		        	hours = parseInt(daysAfter / 3600, 10);
-		        	hoursAfter = (daysAfter - (hours * 3600));					
-				}
+					hours = parseInt(daysAfter / 3600, 10);
+					hoursAfter = (daysAfter - (hours * 3600));                                      
+				}			
 				
 		        minutes = parseInt(hoursAfter / 60, 10);
 		        seconds = parseInt(timer % 60, 10);
@@ -80,9 +77,10 @@
 		        minutes = minutes < 10 ? "0" + minutes : minutes;
 		        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-				if(settings.showDays){
-					days = days || '0';
+				if(days > 1){
 					settings.$daysElem.text(days);
+				}else{
+					settings.$daysWrapElem.hide();
 				}
 						
 				settings.$hrsElem.text(hours);

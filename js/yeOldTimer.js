@@ -33,7 +33,7 @@
 			utcOffset		: -(new Date().getTimezoneOffset() / 60), // will result in users timezone
 			year			: new Date().getFullYear(), // must be four digit year
 			month			: new Date().getMonth(), // 0-11; 0 = January
-			day				: new Date().getDay() + 1, // 1-31
+			day				: new Date().getDate() + 1, // 1-31
 			hour			: 0,
 			min				: 0,
 			second			: 0,

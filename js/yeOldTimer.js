@@ -33,17 +33,18 @@
 			utcOffset		: -(new Date().getTimezoneOffset() / 60), // will result in users timezone
 			year			: new Date().getFullYear(), // must be four digit year
 			month			: new Date().getMonth(), // 0-11; 0 = January
-			day				: new Date().getDate() + 1, // 1-31
+			day			: new Date().getDate() + 1, // 1-31
 			hour			: 0,
-			min				: 0,
+			min			: 0,
 			second			: 0,
 			milsec			: 0,
 			$tmrWrapper		: $('.tmr_wrapper'),
 			$daysElem		: $('.tmr_days'),
-			$daysWrapElem	: $('.tmr_days_wrapper'),
+			$daysWrapElem		: $('.tmr_days_wrapper'),
 			$hrsElem		: $('.tmr_hours'),
 			$minElem		: $('.tmr_minutes'),
 			$secElem		: $('.tmr_seconds'),
+			expireCallback		: null
 		}, options );
 
 		function startTimer(duration,settings) {
@@ -92,6 +93,9 @@
 				if(timer <= 0){
 					settings.$tmrWrapper.hide();
 					clearInterval(interval);
+					if(expireCallback){
+						expireCallback();
+					}
 				}else{
 					setTime(timer);
 					if (showTimer){

@@ -48,6 +48,7 @@ $(function() {
 	options.second		= 0;
 	options.milsec		= 0;
 	options.$tmrWrapper	= $('.tmr_wrapper');
+	options.$daysWrapElem	= $('.tmr_days_wrapper');
 	options.$daysElem	= $('.tmr_days');
 	options.$hrsElem	= $('.tmr_hours');
 	options.$minElem	= $('.tmr_minutes');

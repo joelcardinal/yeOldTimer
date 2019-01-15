@@ -33,18 +33,18 @@
 			utcOffset		: -(new Date().getTimezoneOffset() / 60), // will result in users timezone
 			year			: new Date().getFullYear(), // must be four digit year
 			month			: new Date().getMonth(), // 0-11; 0 = January
-			day			: new Date().getDate() + 1, // 1-31
+			day				: new Date().getDate() + 1, // 1-31
 			hour			: 0,
-			min			: 0,
+			min				: 0,
 			second			: 0,
 			milsec			: 0,
 			$tmrWrapper		: $('.tmr_wrapper'),
 			$daysElem		: $('.tmr_days'),
-			$daysWrapElem		: $('.tmr_days_wrapper'),
+			$daysWrapElem	: $('.tmr_days_wrapper'),
 			$hrsElem		: $('.tmr_hours'),
 			$minElem		: $('.tmr_minutes'),
 			$secElem		: $('.tmr_seconds'),
-			expireCallback		: null
+			expireCallback	: null
 		}, options );
 
 		function startTimer(duration,settings) {
@@ -78,7 +78,7 @@
 		        minutes = minutes < 10 ? "0" + minutes : minutes;
 		        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-				if(days > 1){
+				if(days > 0){
 					settings.$daysElem.text(days);
 				}else{
 					settings.$daysWrapElem.hide();
@@ -93,8 +93,8 @@
 				if(timer <= 0){
 					settings.$tmrWrapper.hide();
 					clearInterval(interval);
-					if(expireCallback){
-						expireCallback();
+					if(settings.expireCallback && typeof settings.expireCallback == 'function'){
+						settings.expireCallback();
 					}
 				}else{
 					setTime(timer);
@@ -116,16 +116,24 @@
 				endDateAdjMil = endDate.getTime(),
 				timeDiffSec;
 	
-			function getEndDateAdjMil(utcOffsetDiff){
-				var adjMil = endDate.getTime() + (utcOffsetDiff  * 3600);
-				return adjMil;
+			var localOffset = -(new Date().getTimezoneOffset() / 60);
+			var offsetDiff = settings.utcOffset - localOffset;
+			var adjDiff;
+			//-7 -5
+			// -7 -8
+			//console.log(localOffset);
+			//console.log(offsetDiff);
+			if(offsetDiff < 0){
+				//console.log('less');
+				adjDiff = (localOffset - settings.utcOffset);
+				endDateAdjMil = endDate.getTime() + (adjDiff * 3600000);
+			}else if(offsetDiff > 0){
+				//console.log('more');
+			 	adjDiff = localOffset + offsetDiff;
+				endDateAdjMil = endDate.getTime() - (offsetDiff * 3600000);
 			}
-	
-			if (utcOffsetDiff > 0){
-				endDateAdjMil = getEndDateAdjMil(Math.abs(utcOffsetDiff));
-			} else if (utcOffsetDiff < 0){
-				endDateAdjMil = getEndDateAdjMil(utcOffsetDiff);
-			}
+			//console.log(adjDiff);
+			//console.log(endDateAdjMil);
 
 			timeDiffMil = endDateAdjMil - currentDate.getTime();
 	
